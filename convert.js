@@ -32,8 +32,24 @@ function convert() {
     for (var i = 0; i < textnodes.length; i++) {
         var cur_content = textnodes[i].textContent.split(' ');
         for (var j = 0; j < cur_content.length; j++) {
-            if (cur_content[j].toLowerCase() in word2ipa) {
-                cur_content[j] = word2ipa[cur_content[j].toLowerCase()];
+            var cur_word = cur_content[j].toLowerCase();
+            //.replace('.', '').replace('?', '').replace('"', '').replace('“', '').replace(',', '');
+            var start_ind = 0;
+            var end_ind = cur_word.length-1;
+            while ('.?"“,”'.indexOf(cur_word[start_ind]) >= 0 && start_ind < cur_word.length) {
+                start_ind += 1;
+            }
+            if (start_ind == cur_word.length) continue;
+            while ('.?"“,”'.indexOf(cur_word[end_ind]) >= 0 && end_ind >= 0) {
+                end_ind -= 1;
+            }
+            if (end_ind < 0) continue;
+            var parsed_word = cur_word.substr(start_ind, end_ind-start_ind+1);
+            if (parsed_word in word2ipa) {
+                cur_content[j] = word2ipa[cur_word.substr(start_ind, end_ind-start_ind)];
+                cur_content[j] = cur_word.substr(0, start_ind) + word2ipa[parsed_word] + cur_word.substr(end_ind+1, cur_word.length-1-end_ind);
+            } else {
+                console.log(parsed_word);
             }
         }
         textnodes[i].textContent = cur_content.join(' ');
