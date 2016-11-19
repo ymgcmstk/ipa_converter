@@ -2,5 +2,4 @@
 *#
 *.pyc
 *.pkl
-*.mat
-ymgc_memo
+word2ipa.json
