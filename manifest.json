@@ -1,0 +1,12 @@
+{
+    "name": "IPA Converter",
+    "version": "1.0",
+    "description": "Write the description.",
+    "manifest_version": 2,
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["jquery.js", "convert.js"]
+        }
+    ]
+}
