@@ -12,10 +12,15 @@ JSON_PATH = 'word2ipa.json'
 DICTIONARY = None
 OFFSET = 0
 
+REPLACER = {'ɪ':'i', 'ɛ':'e', 'ʊ':'u'}
+
 def convert_word_to_ipa(word):
-    return check_output(['espeak', '-q', '--ipa',
-                         '-v', 'en-us',
-                         word])[:-1]
+    ipa = check_output(['espeak', '-q', '--ipa',
+                        '-v', 'en-us',
+                        word])[:-1]
+    for k, v in REPLACER.iteritems():
+        ipa = ipa.replace(k, v)
+    return ipa
 
 def main():
     words = textread(WORD_LIST)
