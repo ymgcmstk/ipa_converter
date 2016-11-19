@@ -8,5 +8,6 @@
             "matches": ["http://*/*", "https://*/*"],
             "js": ["jquery.js", "convert.js"]
         }
-    ]
+    ],
+    "web_accessible_resources": ["word2ipa.json"]
 }

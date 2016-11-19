@@ -5,7 +5,7 @@ $(function(){
     xhr.open('GET', chrome.extension.getURL(file), true);
     xhr.onreadystatechange = function() {
         if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-            config = JSON.parse(xhr.responseText);
+            word2ipa = JSON.parse(xhr.responseText);
         }
     };
     xhr.send();
@@ -15,24 +15,20 @@ $(function(){
         for (var i = 0; i < textnodes.length; i++) {
             var cur_content = textnodes[i].textContent.split(' ');
             for (var j = 0; j < cur_content.length; j++) {
-                if (cur_content[j] in word2ipa) {
-                    cur_content[j] = word2ipa[cur_content[j]];
+                if (cur_content[j].toLowerCase() in word2ipa) {
+                    cur_content[j] = word2ipa[cur_content[j].toLowerCase()];
                 }
             }
-            textnodes[i].textContent = cur_content.join(replace_list[j][1]);
+            textnodes[i].textContent = cur_content.join(' ');
         }
     }
 
-    convert();
-
-    /*
     var timer = 0;
     document.addEventListener('DOMNodeInserted', function() {
         if(timer) return;
         timer = setTimeout(function() {
-            replace();
+            convert();
             timer = 0;
         }, 100);
     }, false);
-    */
 });
