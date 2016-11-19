@@ -2,7 +2,6 @@
 This extension forces you to memorize the International Phonetic Alphabet (IPA) of each word.
 ## Getting Started
 1. Install `espeak`.
-
 If you are using Mac, run the following command:
 ```
 brew install espeak
