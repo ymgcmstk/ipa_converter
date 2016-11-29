@@ -12,7 +12,7 @@ JSON_PATH = 'word2ipa.json'
 DICTIONARY = None
 OFFSET = 0
 
-REPLACER = {'ɪ':'i', 'ɛ':'e', 'ʊ':'u'}
+REPLACER = {'ɪ':'i', 'ɛ':'e', 'ʊ':'u', 'ɐ':'ə', 'ˌ':'', 'ɔ':'ɑ', 'ˈ':"`", 'aiu':'au'}
 
 def convert_word_to_ipa(word):
     ipa = check_output(['espeak', '-q', '--ipa',
@@ -28,7 +28,10 @@ def main():
     for word_i in tictoc(range(len(words))):
         cur_word = words[word_i]
         try:
-            word2ipa[cur_word] = convert_word_to_ipa(cur_word)
+            if cur_word == 'a':
+                word2ipa[cur_word] = 'ə'
+            else:
+                word2ipa[cur_word] = convert_word_to_ipa(cur_word)
         except IndexError as e:
             continue
     jsondump(JSON_PATH, word2ipa)
